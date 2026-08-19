@@ -7,4 +7,14 @@ function requireAdminAuth(req, res, next) {
   next();
 }
 
-module.exports = requireAdminAuth;
+function requireAdminPage(req, res, next) {
+  if (!req.session || !req.session.adminId) {
+    return res.redirect('/admin/login');
+  }
+  next();
+}
+
+module.exports = {
+  requireAdminAuth,
+  requireAdminPage
+};

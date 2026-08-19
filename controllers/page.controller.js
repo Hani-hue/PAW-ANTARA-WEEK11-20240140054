@@ -14,4 +14,12 @@ async function renderHome(req, res) {
   }
 }
 
-module.exports = { renderHome };
+function renderAdminLogin(req, res) {
+  res.render('admin-login', { storeName: 'Toko Kita' }); // sesuaikan storeName kalau beda
+}
+
+function renderAdminProducts(req, res) {
+  res.render('admin-products', { storeName: 'Toko Kita' });
+}
+
+module.exports = { renderHome, renderAdminLogin, renderAdminProducts   };
