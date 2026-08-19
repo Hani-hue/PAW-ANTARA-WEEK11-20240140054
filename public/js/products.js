@@ -1,6 +1,7 @@
 const productStore = createStore({
   products: window.__INITIAL_PRODUCTS__ || [],
   filter: 'all', // 'all' | 'available' | 'out'
+  searchQuery: '',
 });
 
 // komponen badge & card versi JS, paralel sama versi EJS di views/partials
@@ -46,10 +47,36 @@ function renderProductCard(product) {
 }
 
 function getFilteredProducts(state) {
-  if (state.filter === 'available') return state.products.filter((p) => p.stock > 0);
-  if (state.filter === 'out') return state.products.filter((p) => p.stock === 0);
-  return state.products;
+  let result = state.products;
+
+  if (state.filter === 'available') result = result.filter((p) => p.stock > 0);
+  if (state.filter === 'out') result = result.filter((p) => p.stock === 0);
+
+  const query = state.searchQuery.trim().toLowerCase();
+  if (query) {
+    result = result.filter((p) => {
+      const name = (p.name || '').toLowerCase();
+      const desc = (p.description || '').toLowerCase();
+      return name.includes(query) || desc.includes(query);
+    });
+  }
+
+  return result;
 }
+function renderResultBadge(state) {
+  const container = document.getElementById('result-count-badge');
+  if (!container) return;
+
+  const total = getFilteredProducts(state).length;
+  container.innerHTML = renderBadge({
+    label: `Hasil: ${total} produk`,
+    color: total > 0 ? 'green' : 'gray',
+  });
+}
+
+productStore.subscribe(renderProductList);
+productStore.subscribe(renderResultBadge);
+renderResultBadge(productStore.getState());
 
 function renderProductList(state) {
   const container = document.getElementById('product-list');
@@ -81,6 +108,10 @@ document.getElementById('filter-buttons').addEventListener('click', (e) => {
   });
   btn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
   btn.classList.add('bg-blue-600', 'text-white');
+});
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+  productStore.setState({ searchQuery: e.target.value });
 });
 
 /**
