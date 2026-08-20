@@ -110,3 +110,16 @@ ilang pas halaman di-reload — konsep tambahan yang bisa dijelasin: bedanya sta
 - Checkout beneran (submit isi keranjang ke endpoint baru, buat record order di DB)
 - Halaman admin (EJS) buat kelola produk tanpa harus lewat Postman
 - Search produk (state `searchQuery` di `productStore`, filter tambahan)
+
+## Progress tugas Week 11 "Toko Kita":
+- Search produk
+  <img width="1600" height="1000" alt="fitur cari" src="https://github.com/user-attachments/assets/4f679720-6cbb-4c6e-8c21-0d455cb069ca" />
+  
+- badge hasil pencarian
+  <img width="1600" height="1000" alt="badge hasil pencarian" src="https://github.com/user-attachments/assets/708b6c82-6373-47fe-a45d-1c45110b9dbd" />
+
+- Login admin
+<img width="1600" height="1000" alt="login admin" src="https://github.com/user-attachments/assets/e7e610a9-6db9-48a0-b2f5-bba9a52260d4" />
+
+- Kelola produk (CRUD) via halaman admin
+  <img width="1600" height="1000" alt="crud product admin" src="https://github.com/user-attachments/assets/b001e497-8115-47f7-b563-5641a502a321" />
